@@ -10,6 +10,7 @@
     "fileuploader": "^1.2.7",
     "google-auth-library": "^9.15.1",
     "googleapis": "^144.0.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.6",
     "nodemon": "^3.1.9",
     "path": "^0.12.7"
