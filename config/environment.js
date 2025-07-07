@@ -75,6 +75,6 @@ module.exports = config;
         MONGODB_URI: config.MONGODB_URI ? '✅ Connected' : '❌ Missing',
         GOOGLE_AUTH: config.GOOGLE_CLIENT_ID ? '✅ Configured' : '❌ Missing'
     });
-}
+
 
 module.exports = config;
