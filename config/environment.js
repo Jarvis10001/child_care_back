@@ -14,21 +14,32 @@ const config = {
         : (process.env.MONGODB_URI_PROD || process.env.MONGODB_URI),
     
     // Frontend URL
-    FRONTEND_URL: isDevelopment 
-        ? (process.env.FRONTEND_URL_DEV || 'http://localhost:5173')
-        : (process.env.FRONTEND_URL_PROD || process.env.FRONTEND_URL),
+    FRONTEND_URL: process.env.FRONTEND_URL || (
+        process.env.NODE_ENV === 'production' 
+            ? 'https://child-care-front-etng.vercel.app'
+            : 'http://localhost:5173'
+    ),
     
     // Backend URL
     BACKEND_URL: isDevelopment 
         ? (process.env.BACKEND_URL_DEV || 'http://localhost:2006')
         : (process.env.BACKEND_URL_PROD || `https://api.yourdomain.com`),
     
+    // API Base URL
+    API_BASE_URL: process.env.API_BASE_URL || (
+        process.env.NODE_ENV === 'production'
+            ? 'https://child-care-back.onrender.com'
+            : 'http://localhost:2006'
+    ),
+    
     // Google OAuth
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
-    GOOGLE_REDIRECT_URI: isDevelopment 
-        ? (process.env.GOOGLE_REDIRECT_URI_DEV || 'http://localhost:2006/api/meetings/google/callback')
-        : (process.env.GOOGLE_REDIRECT_URI_PROD || process.env.GOOGLE_REDIRECT_URI),
+    GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI || (
+        process.env.NODE_ENV === 'production'
+            ? 'https://child-care-back.onrender.com/api/meetings/google/callback'
+            : 'http://localhost:2006/api/meetings/google/callback'
+    ),
     
     // Security
     JWT_SECRET: process.env.JWT_SECRET || 'fallback-secret-key',
@@ -43,9 +54,11 @@ const config = {
     JITSI_DOMAIN: process.env.JITSI_DOMAIN || 'meet.jit.si',
     
     // CORS origins
-    CORS_ORIGINS: isDevelopment 
-        ? ['http://localhost:5173', 'http://localhost:3000']
-        : ['https://yourdomain.com', 'https://www.yourdomain.com'],
+    CORS_ORIGINS: [
+        'https://child-care-front-etng.vercel.app',
+        'http://localhost:5173',
+        'http://localhost:3000'
+    ],
     
     // Flags
     isDevelopment,
