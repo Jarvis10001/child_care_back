@@ -7,23 +7,15 @@ const config = {
     // Environment
     NODE_ENV: process.env.NODE_ENV || 'development',
     PORT: process.env.PORT || 2006,
-    
-    // Database
-    MONGODB_URI: isDevelopment 
-        ? (process.env.MONGODB_URI_DEV || process.env.MONGODB_URI)
-        : (process.env.MONGODB_URI_PROD || process.env.MONGODB_URI),
+    isDevelopment,
+    isProduction,
     
     // Frontend URL
     FRONTEND_URL: process.env.FRONTEND_URL || (
         process.env.NODE_ENV === 'production' 
-            ? 'https://child-care-front-etng.vercel.app'
+            ? 'https://child-care-front.vercel.app'
             : 'http://localhost:5173'
     ),
-    
-    // Backend URL
-    BACKEND_URL: isDevelopment 
-        ? (process.env.BACKEND_URL_DEV || 'http://localhost:2006')
-        : (process.env.BACKEND_URL_PROD || `https://api.yourdomain.com`),
     
     // API Base URL
     API_BASE_URL: process.env.API_BASE_URL || (
@@ -55,18 +47,26 @@ const config = {
     
     // CORS origins
     CORS_ORIGINS: [
-        'https://child-care-front-etng.vercel.app',
+        'https://child-care-front.vercel.app',
+        'https://child-care-front-etng.vercel.app', // Keep old URL for fallback
         'http://localhost:5173',
         'http://localhost:3000'
-    ],
-    
-    // Flags
-    isDevelopment,
-    isProduction
+    ]
 };
 
 // Log configuration (only in development)
 if (isDevelopment) {
+    console.log('🔧 Environment Configuration:', {
+        NODE_ENV: config.NODE_ENV,
+        PORT: config.PORT,
+        FRONTEND_URL: config.FRONTEND_URL,
+        BACKEND_URL: config.BACKEND_URL,
+        MONGODB_URI: config.MONGODB_URI ? '✅ Connected' : '❌ Missing',
+        GOOGLE_AUTH: config.GOOGLE_CLIENT_ID ? '✅ Configured' : '❌ Missing'
+    });
+}
+
+module.exports = config;
     console.log('🔧 Environment Configuration:', {
         NODE_ENV: config.NODE_ENV,
         PORT: config.PORT,
